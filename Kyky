@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Linq;                                    ЭТА ХУЙНЯ ПОЛНАЯ,Я ЕБУ КАК НА НЕЙ РАБОТАТЬ 
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -13,13 +13,24 @@ namespace Курсач
     public partial class Form1 : Form
     {
         static Button New_Game;
+        
         public Form1()
         {
             InitializeComponent();
+            Button Info = new Button();
+            Controls.Add(Info);
+            Info.Location = new Point(75, 0);
+            Info.Text = "Info";
+            Info.Click += Info_Click;
             New_Game = new Button();
             New_Game.Text = "New Game";
             New_Game.Click += New_Game_Click;
             Controls.Add(New_Game);
+        }
+
+        private void Info_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Перед Вами логическая математическая игра головоломка. Ваша задача очистить игровое поле заполненное цифрами за ограниченный промежуток времени. Чтобы убрать цифры, Вам нужно будет считать их суммы. В правом верхнем углу игрового поля будет указано число. Ваша задача кликнуть правой кнопкой мыши на цифры, которые дадут в сумме это число. После каждого правильного ответа требуемое число будет меняться.");
         }
 
         private void New_Game_Click(object sender, EventArgs e)
@@ -30,9 +41,9 @@ namespace Курсач
     }
     public partial class Form_Sum : Form
     {
+
         static string[,] b_num;
         static int[,] sum;
-        static Label time;
         static Timer clock;
         static Random R1 = new Random();
         static string r;
@@ -49,11 +60,11 @@ namespace Курсач
             Controls.Add(number);
             number.Text = (R1.Next(1, 20).ToString());
             number.Location = new Point(220, 0);
-            //time = new Label();
-            //time.Location = new Point(220, 140);
-            //time.Size = new Size(50, 25);
-            //Controls.Add(time);
-            //time.Text = "";
+
+            //ProgressBar PrBar = new ProgressBar();
+            //Controls.Add(PrBar);
+            //PrBar.Location = new Point(220, 170);
+
             //clock.Enabled = true;
             //clock.Interval = 0;
             //Controls.Add(clock);
@@ -75,7 +86,7 @@ namespace Курсач
             {
                 for (int j = 0; j < N; j++)
                 {
-                    b_num[i, j] = btn[i, j].Text;
+                    //b_num[i, j] = btn[i, j].Text;
                     R = R1.Next(0, 10);
                     r = R.ToString();
                     btn[i, j] = new Button();
@@ -84,52 +95,55 @@ namespace Курсач
                     Controls.Add(btn[i, j]);
                     btn[i, j].Size = new Size(20, 20);
                     btn[i, j].Location = new Point(20 * i, 20 * j);
+                    
                     //btn[i, j].Click += Form_Sum_Click;
                 }
             }
         }
 
-        //private void Form_Sum_Click(object sender, EventArgs e)
-        //{
-        //    Button b = (Button)sender;
+        private void Form_Sum_Click(object sender, EventArgs e)
+        {
+            Button b = (Button)sender;
+            b.Enabled = false;
+            b.BackColor = Color.Blue;
+            //sum = new int[N, N];
+            //for (int i = 0; i < N; i++)
+            //{
+            //    for (int j = 0; j < N; j++)
+            //    {
+            //        sum[i, j] = int.Parse(b_num[i, j]);
+            //    }
+            //}
+            //int[,] mtx = new int[N, N];
+            //string s_num = number.Text;
+            //int i_num = int.Parse(s_num);
+            //int i_b = int.Parse(b.Text);
+            //int z = i_num - i_b;
+            //for (int i = 0; i < N; i++)
+            //{
+            //    for (int j = 0; j < N; j++)
+            //    {
+            //        if (sum[i, j] == z)
+            //        {
+            //            mtx[i, j] = 1;//запись в массив значений равных z
+            //        }
+            //        else
+            //        {
+            //            mtx[i, j] = 0;//запись в массив значений не равных z
+            //        }
+            //    }
+            //}
+        }
 
-        //    sum = new int[N, N];
-        //    for (int i = 0; i < N; i++)
-        //    {
-        //        for (int j = 0; j < N; j++)
-        //        {
-        //            sum[i, j] = int.Parse(b_num[i, j]);
-        //        }
-        //    }
-        //    int[,] mtx = new int[N, N];
-        //    string s_num = number.Text;
-        //    int i_num = int.Parse(s_num);
-        //    int i_b = int.Parse(b.Text);
-        //    int z = i_num - i_b;
-        //    for (int i = 0; i < N; i++)
-        //    {
-        //        for (int j = 0; j < N; j++)
-        //        {
-        //            if (sum[i,j]==z)
-        //            {
-        //                mtx[i, j] = 1;//запись в массив значений равных z
-        //            }
-        //            else
-        //            {
-        //                mtx[i, j] = 0;//запись в массив значений не равных z
-        //            }
-        //        }
-        //    }
-        //}
- //public static int Check_Rand(string y)
+        //public static int Check_Rand(string y)
         //{
         //    string s_num = number.Text;
         //    int i_num = int.Parse(s_num);
         //    int i_y = int.Parse(y);
-        //    int z = i_num-i_y;
+        //    int z = i_num - i_y;
         //    return z;
         //}
-       
+
         //public static void Check()
         //{
         //    if (Check_Rand)
